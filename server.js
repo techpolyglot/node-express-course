@@ -1,13 +1,21 @@
 const express = require('express');
 const app = express();
 const bodyParser = require ('body-parser');
-appe.use(bodyParser.json());
+app.use(bodyParser.json());
 
 
 const mockUserData = [ 
 	{name: 'Mark'},
 	{name: 'Jill'}
 ]
+
+app.get('/users',function(req,res){
+	res.json({
+		success: true,
+		message: 'successfully got users. Nice!',
+		users: mockUserData
+	})
+})
 
 app.get('/users/:id', function(req,res){
 	console.log(req.params.id)
@@ -18,7 +26,7 @@ app.get('/users/:id', function(req,res){
 		})
 })
 
-app.post('login', function(req,res){
+app.post('/login', function(req,res){
 	const username = req.body.username;
 	const password = req.body.password;
 
@@ -26,7 +34,7 @@ app.post('login', function(req,res){
 	const mockPassword = "superSecret"
 
 
-	if(username == mockUserName && password == mockPassword){
+	if(username == mockUsername && password == mockPassword){
 		// In practice, use JSON web token sign method here to make an encrypted token
 		res.json({
 			success: true,
